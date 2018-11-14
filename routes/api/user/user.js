@@ -1,27 +1,16 @@
 const router = require("express").Router();
 const userControlller = require("../../../controllers/userController");
 
-const multer = require("multer");
-
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, "./imgFolder/");
-    },
-    filename: function(req, file, cb) {
-        cb(null, new Date().toISOString() + "-" + file.originalname);
-    }
-});
-
-const upload = multer({ storage });
-
-router.route("/").get(function(req, res, next) {
-    res.send("It just works!");
-});
+router
+    .route("/")
+    .get((req, res, next) => res.send("App is running!"));
 
 router
     .route("/sign-up")
-    .post(upload.single("sampleImg"), userControlller.create);
+    .post(userControlller.createAndSignIn);
 
-router.route("/sign-in").post(userControlller.signIn);
+router
+    .route("/sign-in")
+    .post(userControlller.signIn);
 
 module.exports = router;

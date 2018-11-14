@@ -4,17 +4,27 @@ const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
         trim: true,
-        required: "First name is required!"
+        required:
+            "First name is required!"
     },
     lastName: {
         type: String,
         trim: true,
-        required: "Last name is required"
+        required:
+            "Last name is required"
+    },
+    username: {
+        type: String,
+        trim: true,
+        required:
+            "Username is required",
+        unique: true
     },
     email: {
         type: String,
         trim: true,
-        required: "Email address is required",
+        required:
+            "Email address is required",
         unique: true,
         match: [
             /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
@@ -24,18 +34,20 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         trim: true,
-        required: "Password is required",
+        required:
+            "Password is required",
         validate: [
             function(input) {
-                return input.length >= 8;
+                return (
+                    input.length >= 8
+                );
             },
             "Password should be at least 8 characters!"
         ]
-    },
-    profilePic: {
-        type: String, 
-        required: true 
     }
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model(
+    "User",
+    userSchema
+);

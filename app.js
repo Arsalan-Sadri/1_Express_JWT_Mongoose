@@ -5,8 +5,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 
-app.use("/imgFolder", express.static("imgFolder"));
-
 app.use(logger("dev"));
 app.use(
     bodyParser.urlencoded({
