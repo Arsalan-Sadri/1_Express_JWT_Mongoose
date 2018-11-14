@@ -7,7 +7,7 @@ router
 
 router
     .route("/sign-up")
-    .post(userControlller.createAndSignIn);
+    .post(userControlller.signUp);
 
 router
     .route("/sign-in")
