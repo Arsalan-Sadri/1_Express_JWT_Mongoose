@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 if (process.env.NODE_ENV !== "production") require("dotenv").load();
 
 module.exports = {
-    createAndSignIn: function(req, res) {
+    createAndSignIn: (req, res) => {
         bcrypt.hash(req.body.password, 10, function(err, encrypted) {
             if (err) res.sendStatus(400);
             else {
@@ -34,12 +34,15 @@ module.exports = {
             }
         });
     },
-    signIn: function(req, res) {
+    signIn: (req, res) => {
         db.User.findOne({
             email: req.body.email
         })
             .then(function(dbUser) {
-                bcrypt.compare(req.body.password, dbUser.password, function(err, passVerified) {
+                bcrypt.compare(req.body.password, dbUser.password, function(
+                    err,
+                    passVerified
+                ) {
                     if (err) res.send(err);
                     else if (passVerified) {
                         jwt.sign(
@@ -64,7 +67,7 @@ module.exports = {
                 res.send("Email not found!");
             });
     },
-    findAndReturn: function(req, res) {
+    findAndReturn: (req, res) => {
         db.User.findOne({
             username: req.params.username
         })
@@ -80,11 +83,8 @@ module.exports = {
                 res.send("User not found!");
             });
     },
-    findAll: function(req, res) {
+    findAll: (req, res) =>
         db.User.find({})
             .then(allDbUsers => res.json(allDbUsers))
-            .catch(function(err) {
-                res.send("User not found!");
-            });
-    }
+            .catch(err => res.send("User not found!"))
 };
