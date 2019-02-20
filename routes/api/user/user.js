@@ -7,7 +7,10 @@ router
 
 router
     .route("/sign-up")
-    .post(userControlller.signUp);
+    .post(function(req, res, next) {
+        console.log(req);
+        next();
+    },userControlller.signUp);
 
 router
     .route("/sign-in")
